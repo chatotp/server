@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "OTPChat";
+
+package decrypt;
+
+service DecryptService {
+    rpc Decrypt (EncryptedText) returns (DecryptedText) {}
+}
+
+message EncryptedText {
+  string text = 1;
+  string key = 2;
+  string algorithm = 3;
+}
+
+message DecryptedText {
+  string text = 1;
+}
