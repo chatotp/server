@@ -1,4 +1,5 @@
 using OTPChat.Services;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddGrpc();
 
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpsRedirection(options =>
+    {
+        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+        options.HttpsPort = 443;
+    });
+}
+
 var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
 // Configure the HTTP request pipeline.
 // Upgrade insecure HTTP requests to HTTPS
