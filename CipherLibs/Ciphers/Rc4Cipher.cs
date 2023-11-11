@@ -15,7 +15,7 @@ public class Rc4Cipher : XorCipher, ICipher
     // using KSA (Key Scheduling Algorithm)
     // <param name="key">Key</param>
     // </summary>
-    protected override byte[] GetKey(long size)
+    protected override byte[] CreateKey(long size)
     {
         var (i, j) = (0L, 0L);
         byte[] permut = GetPermutation(size);

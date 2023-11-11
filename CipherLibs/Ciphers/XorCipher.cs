@@ -13,7 +13,7 @@ public class XorCipher : Cipher
     {
     }
 
-    protected override byte[] GetKey(long size)
+    protected override byte[] CreateKey(long size)
     {
         // use a random number between size and 3 * size
         // to set size for key

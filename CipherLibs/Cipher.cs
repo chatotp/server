@@ -16,10 +16,11 @@ public abstract class Cipher
 
     public Cipher(long size)
     {
-        _key = GetKey(size);
+        _key = CreateKey(size);
     }
 
-    protected abstract byte[] GetKey(long size);
+    protected abstract byte[] CreateKey(long size);
+
     public abstract string Encrypt(string plainText);
     public abstract string Decrypt(string cipherText);
 }
