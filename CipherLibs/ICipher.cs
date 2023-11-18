@@ -3,6 +3,6 @@ namespace CipherLibs;
 internal interface ICipher
 {
     byte[] Key { get; }
-    string Encrypt(string plainText);
-    string Decrypt(string cipherText);
+    List<int> Encrypt(int[] plainText);
+    List<int> Decrypt(int[] cipherText);
 }

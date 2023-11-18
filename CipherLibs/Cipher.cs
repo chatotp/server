@@ -1,6 +1,6 @@
 namespace CipherLibs;
 
-public abstract class Cipher
+public abstract class Cipher : ICipher
 {
     private readonly byte[] _key;
     
@@ -21,6 +21,6 @@ public abstract class Cipher
 
     protected abstract byte[] CreateKey(long size);
 
-    public abstract string Encrypt(string plainText);
-    public abstract string Decrypt(string cipherText);
+    public abstract List<int> Encrypt(int[] plainText);
+    public abstract List<int> Decrypt(int[] cipherText);
 }

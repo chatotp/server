@@ -31,20 +31,20 @@ public class XorCipher : Cipher
         return key;
     }
 
-    public override string Encrypt(string plainText)
+    public override List<int> Encrypt(int[] plainText)
     {
-        var sb = new StringBuilder();
+        List<int> cipherText = new();
         for (int i = 0; i < plainText.Length; i++)
         {
             int charCode = plainText[i];
             charCode ^= Key[i % Key.Length];
-            sb.Append((char)charCode);
+            cipherText.Add(charCode);
         }
 
-        return sb.ToString();
+        return cipherText;
     }
 
-    public override string Decrypt(string cipherText)
+    public override List<int> Decrypt(int[] cipherText)
     {
         return this.Encrypt(cipherText);
     }

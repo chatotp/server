@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  server:
+    image: ${DOCKER_REGISTRY-}chatotpserver
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+  postgres:
+    build:
+      context: .
+      dockerfile: postgres.dockerfile
+    image: "postgres-tutorials"
+    container_name: ${PG_CONTAINER_NAME}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: ${PGDATA}
+    volumes:
+       - chat-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+volumes:
+    chat-db:
+      external: false
