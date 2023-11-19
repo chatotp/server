@@ -12,5 +12,7 @@
 
         Task StartMessage();
         Task StopMessage(string user);
+
+        Task ReceiveFile(string user, string fileName, string hash);
     }
 }

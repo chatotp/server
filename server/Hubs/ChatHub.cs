@@ -113,5 +113,15 @@ namespace server.Hubs
 
             await Clients.Caller.ReceiveMessage(user, message);
         }
+
+        public async Task SendFile(string user, string fileName, string hash)
+        {
+            if (user == null || user.Equals(""))
+            {
+                user = Context.ConnectionId;
+            }
+
+            await Clients.AllExcept(Context.ConnectionId).ReceiveFile(user, fileName, hash);
+        }
     }
 }
