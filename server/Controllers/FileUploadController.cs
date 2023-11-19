@@ -9,12 +9,10 @@ namespace server.Controllers
     public class FileUploadController : ControllerBase
     {
         private readonly FileUploadService _fileUploadService;
-        private readonly ChatAuthenticationService _chatAuthenticationService;
 
-        public FileUploadController(FileUploadService fileUploadService, ChatAuthenticationService authenticationService)
+        public FileUploadController(FileUploadService fileUploadService)
         {
             _fileUploadService = fileUploadService;
-            _chatAuthenticationService = authenticationService;
         }
 
         [HttpGet("download/{hash}")]
@@ -37,7 +35,7 @@ namespace server.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload(IFormFile file, [FromForm] string hash)
+        public async Task<IActionResult> Upload(IFormFile file, [FromForm] string hash, [FromForm] string connId)
         {
             var result = await _fileUploadService.UploadFileAsync(file, hash);
 
