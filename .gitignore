@@ -8,3 +8,4 @@ riderModule.iml
 .vscode/
 /.vs
 .env
+server/uploads/
