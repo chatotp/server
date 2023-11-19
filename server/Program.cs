@@ -9,6 +9,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSignalR();
 builder.Services.AddScoped<ChatAuthenticationService>();
 builder.Services.AddScoped<DbControllerService>();
+builder.Services.AddScoped<FileUploadService>();
+builder.Services.AddControllers();
 
 builder.Services.AddHsts(options =>
 {
@@ -21,10 +23,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
         builder => builder
-            .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+            .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:4173", "http://127.0.0.1:4173")
+            .WithOrigins("http://localhost:45002", "http://127.0.0.1:45002")
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowCredentials());
+            .AllowCredentials()); ;
 });
 
 var app = builder.Build();
@@ -44,5 +47,6 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapHub<ChatHub>("/chat");
 app.MapFallbackToPage("/_Host");
+app.MapControllers();
 
 app.Run();

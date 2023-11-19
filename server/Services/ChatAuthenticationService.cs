@@ -10,10 +10,12 @@ namespace server.Services
     public class ChatAuthenticationService
     {
         private DbControllerService _controllerService;
+        private readonly FileUploadService _fileUploadService;
 
-        public ChatAuthenticationService(IConfiguration configuration)
+        public ChatAuthenticationService(DbControllerService dbControllerService, FileUploadService fileUploadService)
         {
-            _controllerService = new DbControllerService(configuration);
+            _controllerService = dbControllerService;
+            _fileUploadService = fileUploadService;
         }
 
         public async Task<bool> AuthenticateAsync(string connId, string user, int algorithm)
