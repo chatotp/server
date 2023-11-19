@@ -35,7 +35,7 @@ namespace server.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload(IFormFile file, [FromForm] string hash, [FromForm] string connId)
+        public async Task<IActionResult> Upload(IFormFile file, [FromForm] string hash)
         {
             var result = await _fileUploadService.UploadFileAsync(file, hash);
 
