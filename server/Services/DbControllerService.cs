@@ -25,8 +25,6 @@ namespace server.Services
             }
 
             _dataSource = NpgsqlDataSource.Create(_connectionString);
-            _dataSource.OpenConnection();
-
             _insertCommand = _dataSource.CreateCommand("INSERT INTO users (Id, Name, Algorithm, Key) VALUES (@connId, @name, @cipher, @key)");
             _insertCommand.Parameters.Add(new NpgsqlParameter("@connId", NpgsqlDbType.Text));
             _insertCommand.Parameters.Add(new NpgsqlParameter("@name", NpgsqlDbType.Text));
