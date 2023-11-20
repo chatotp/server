@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using server.Hubs;
 using server.Services;
+using server.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
@@ -21,14 +22,24 @@ builder.Services.AddHsts(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy",
-        builder => builder
+    options.AddPolicy("DevCorsPolicy",
+        policy => policy
             .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:4173", "http://127.0.0.1:4173")
             .WithOrigins("http://localhost:45002", "http://127.0.0.1:45002")
             .WithOrigins("https://localhost:45002", "https://127.0.0.1:45002")
+            .WithOrigins($"https://${IPInfo.GetIPv4OfWiFiInterface()}:5173")
+            .WithOrigins($"https://${IPInfo.GetIPv4OfWiFiInterface()}:5173")
+            .WithOrigins($"https://${IPInfo.GetIPv4OfWiFiInterface()}:45002")
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowCredentials()); ;
+            .AllowCredentials());
+
+    options.AddPolicy("ProdCorsPolicy",
+        policy => policy
+            .WithOrigins($"https://${IPInfo.GetIPv4OfWiFiInterface()}:45002") // Change this before production
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
 
 var app = builder.Build();
@@ -37,12 +48,16 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
+    app.UseCors("ProdCorsPolicy");
+}
+else
+{
+    app.UseCors("DevCorsPolicy");
 }
 
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-app.UseCors("CorsPolicy");
 app.UseRouting();
 
 app.MapBlazorHub();
