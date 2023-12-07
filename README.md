@@ -1,5 +1,4 @@
-# ChatOTP
-ChatOTP is a chat protocol designed for anonymity and security through one-time pads. Each client generates a unique one-time key for encryption per session.
+**Note:** This project was created as a part of term project for Cryptography and is not recommended for production purposes as of now.
 
 # ChatOTP Server
 This repository contains source code for ChatOTP Server. The backend uses PostgresSQL and REST API controllers for handling user data and files respectively.
